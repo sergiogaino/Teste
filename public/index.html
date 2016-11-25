@@ -1,0 +1,244 @@
+<!doctype html>
+
+<!-- ASSINATURA DO ANGULAR -->
+<html ng-app="cvcResorts">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Otimização para mobile -->
+
+	<title>CVC - Resort</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/component/bootstrap-3.3.7-dist/css/bootstrap.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+	<!-- SPELLS -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- Carrega o Angular Remoto -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> <!-- Carrega o Jquery Remoto -->
+	<script src="component/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> <!-- Carrega o Bootstrap JS Local -->
+	
+	<!-- SPELLS APP -->
+	<script src="js/controllers/main.js"></script> <!-- Controller -->
+	<script src="js/services/resorts.js"></script> <!-- Service -->
+	<script src="js/core.js"></script> <!-- APP -->
+
+</head>
+<!-- CONTROLE -->
+<body ng-controller="mainController">
+	<div class="container">
+		<div class="row custom-header">
+			<div class="col-xs-4 col-sm-4 text-center vcenter hidden-lg">
+				<img src="image/menu.png" alt="Menu">
+			</div>
+			<div class="col-xs-4 col-sm-4 text-center vcenter">
+				<img src="image/cvc-logo-large.png" alt="CVC">
+			</div>
+			<div class="col-xs-4 col-sm-4 text-center vcenter hidden-lg">
+				<img src="image/filtro.png" alt="Filtro">
+				
+			</div>
+		</div>
+		<!-- MENU -->
+		<div class="row">
+			<div class="navbar-inverse side-collapse in">
+				<!-- NÃO IMPLEMENTADO -->
+				<nav role="navigation" class="navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="#pacotes">PACOTES</a></li>
+						<li><a href="#hoteis">HOTÉIS</a></li>
+						<li><a href="#resorts">RESORTS</a></li>
+						<li><a href="#carros">CARROS</a></li>
+						<li><a href="#cruzeiros">CRUZEIROS</a></li>
+						<li><a href="#circuitos">CIRCUITOS</a></li>
+						<li><a href="#intercambios">INTERCÂMBIOS</a></li>
+						<li><a href="#ingressos">INGRESSOS</a></li>
+						<li><a href="#vale-viagem">VALE-VIAGEM</a></li>
+						<li><a href="#destinos">DESTINOS</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<!-- IMAGEM TOPO -->
+		<div class="row">
+			<img src="image/header-resort.png" class="img-responsive" alt="Resorts">
+		</div>
+		<!-- CONTEUDO -->
+		<div class="row">
+			<!-- FILTRO -->
+			<div class="col-xs-2 col-sm-2 text-center vcenter hidden-xs hidden-sm">
+				<!-- IMPLEMENTADO SOMENTE FILTRO BASICO -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 text-left vcenter divborder filter-top">
+						<h6>FILTRAR OS RESULTADOS</h6>
+					</div>
+					<div class="col-xs-12 col-sm-12 text-left vcenter divborder filter-content">
+						<h5>Região</h5>
+						<p>
+							<small><input type="checkbox" ng-model="filtro" ng-init="filtro=''" ng-true-value=""/>Todos</small>
+						</p>
+						<p>
+							<small><input type="checkbox" ng-model="filtro" ng-init="filtro=''" ng-true-value="Nordeste"/>Nordeste</small>
+						</p>
+						<p>
+							<small><input type="checkbox" ng-model="filtro" ng-init="filtro=''" ng-true-value="Norte"/>Norte</small>
+						</p>
+					</div>
+				</div>
+			</div>
+			<!-- RESULTADO CONTEUDO LG -->
+			<div class="col-xs-10 col-sm-10 text-left vcenter hidden-xs hidden-sm">
+				<div class="row" ng-repeat="resort in resorts | filter:{regiao:filtro}">
+					<div class="col-xs-12 col-sm-12 text-left vcenter">
+						<h4>{{ resort.regiao }}</h4>
+						<h5>{{ resort.estado }}</h5>
+						<div class="row divborder">
+							<div class="col-xs-4 col-sm-4 text-left vcenter nopadding">
+								<img ng-src="image/resorts/{{resort.imagem}}" class="img-responsive" alt="Resort">
+							</div>
+							<div class="col-xs-5 col-sm-5 text-left vcenter nopadding">
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 text-left vcenter">
+										{{ resort.nome }}
+										<p><small>{{ resort.cidade }} | {{ resort.estado }}</small></p>
+									</div>
+									<div class="col-xs-2 col-sm-2 text-left vcenter paddingtop" ng-if="resort.presente">
+										<img ng-src="image/{{resort.presente}}" ng-if="resort.presente" alt="Presente">
+									</div>
+									<div class="col-xs-2 col-sm-2 text-left vcenter paddingtop" ng-if="resort.bebida">
+										<img ng-src="image/{{resort.bebida}}" ng-if="resort.bebida" alt="Bebida">
+									</div>
+									<div class="col-xs-2 col-sm-2 text-left vcenter paddingtop" ng-if="resort.wifi">
+										<img ng-src="image/{{resort.wifi}}" ng-if="resort.wifi" alt="Wifi">
+									</div>
+									<div class="col-xs-4 col-sm-4 text-left vcenter paddingtop" ng-if="resort.cancelamentoGratis">
+										<img ng-src="image/{{resort.cancelamentoGratis}}" ng-if="resort.cancelamentoGratis" alt="Cancelamento Gratis">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3 col-sm-3 text-right vcenter nopadding">
+								<img ng-src="image/bloco-amarelo.png" class="quadrado-amarelo" alt="Resort">
+								<div class="quadrado-amarelo-texto text-right">
+									{{ resort.tipo }}
+								</div>
+								<div class="quadrado-amarelo-parcela text-right">
+									em até {{ resort.parcelas }}x
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- RESULTADO CONTEUDO SM -->
+			<div class="col-xs-12 col-sm-12 text-left vcenter hidden-xs hidden-lg">
+				<div class="row" ng-repeat="resort in resorts | filter:{regiao:filtro}">
+					<div class="col-xs-12 col-sm-12 text-left vcenter">
+						<h4>{{ resort.regiao }}</h4>
+						<h5>{{ resort.estado }}</h5>
+						<div class="row divborder">
+							<div class="col-xs-4 col-sm-4 text-left vcenter nopadding">
+								<img ng-src="image/resorts/{{resort.imagem}}" class="img-responsive" alt="Resort">
+							</div>
+							<div class="col-xs-5 col-sm-5 text-left vcenter nopadding">
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 text-left vcenter">
+										{{ resort.nome }}
+										<p><small>{{ resort.cidade }} | {{ resort.estado }}</small></p>
+									</div>
+									<div class="col-xs-2 col-sm-2 text-left vcenter paddingtop" ng-if="resort.presente">
+										<img ng-src="image/{{resort.presente}}" ng-if="resort.presente" alt="Presente">
+									</div>
+									<div class="col-xs-2 col-sm-2 text-left vcenter paddingtop" ng-if="resort.bebida">
+										<img ng-src="image/{{resort.bebida}}" ng-if="resort.bebida" alt="Bebida">
+									</div>
+									<div class="col-xs-2 col-sm-2 text-left vcenter paddingtop" ng-if="resort.wifi">
+										<img ng-src="image/{{resort.wifi}}" ng-if="resort.wifi" alt="Wifi">
+									</div>
+									<div class="col-xs-4 col-sm-4 text-left vcenter paddingtop" ng-if="resort.cancelamentoGratis">
+										<img ng-src="image/{{resort.cancelamentoGratis}}" ng-if="resort.cancelamentoGratis" alt="Cancelamento Gratis">
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3 col-sm-3 text-right vcenter nopadding">
+								<img ng-src="image/bloco-amarelo.png" class="quadrado-amarelo" alt="Resort">
+								<div class="quadrado-amarelo-texto text-right">
+									{{ resort.tipo }}
+								</div>
+								<div class="quadrado-amarelo-parcela text-right">
+									em até {{ resort.parcelas }}x
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- RESULTADO CONTEUDO XS -->
+			<div class="col-xs-12 col-sm-12 text-left vcenter hidden-sm hidden-lg">
+				<div class="row" ng-repeat="resort in resorts | filter:{regiao:filtro}">
+					<div class="col-xs-12 col-sm-12 text-left vcenter">
+						<h4>{{ resort.regiao }}</h4>
+						<h5>{{ resort.estado }}</h5>
+						
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 text-center vcenter divborder">
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 text-center vcenter nopadding">
+										<img ng-src="image/resorts/{{resort.imagem}}" class="" alt="Resort">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 text-left vcenter">
+										{{ resort.nome }}
+										<p><small>{{ resort.cidade }} | {{ resort.estado }}</small></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-2 col-sm-2 text-left vcenter paddingtop" ng-if="resort.presente">
+										<img ng-src="image/{{resort.presente}}" ng-if="resort.presente" alt="Presente">
+									</div>
+									<div class="col-xs-2 col-sm-2 text-left vcenter paddingtop" ng-if="resort.bebida">
+										<img ng-src="image/{{resort.bebida}}" ng-if="resort.bebida" alt="Bebida">
+									</div>
+									<div class="col-xs-2 col-sm-2 text-left vcenter paddingtop" ng-if="resort.wifi">
+										<img ng-src="image/{{resort.wifi}}" ng-if="resort.wifi" alt="Wifi">
+									</div>
+									<div class="col-xs-4 col-sm-4 text-left vcenter paddingtop" ng-if="resort.cancelamentoGratis">
+										<img ng-src="image/{{resort.cancelamentoGratis}}" ng-if="resort.cancelamentoGratis" alt="Cancelamento Gratis">
+									</div>
+								</div>
+								<div class="row quadrado-amarelo-xs">
+									<div class="col-xs-6 col-sm-6 text-right vcenter nopadding">
+										<div class="text-left">
+											{{ resort.tipo }}
+										</div>
+										<div class="text-left">
+											em até {{ resort.parcelas }}x
+										</div>
+									</div>
+									<div class="col-xs-6 col-sm-6 text-center vcenter nopadding">
+										<img src="image/btn-ver-detalhes.png" alt="CVC">
+									</div>
+								</div>
+		
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<!-- RODAPE -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 text-center vcenter custom-bottom hidden-xs hidden-sm">
+				<!-- NÃO IMPLEMENTADO -->
+				<img src="image/rodape.png" class="img-responsive" alt="">
+			</div>
+			<div class="col-xs-12 col-sm-12 text-center vcenter custom-bottom">
+				<p>CVC Brasil Operadora e Agência de Viagens | CNPJ: 10.760.260/0001-19 | Rua das Figueiras, 501 - Jardim – Santo André – SP | CEP: 09.080-370</p>
+				<p><img src="image/cvc-logo-minor.png" alt="CVC">© 2016 Viagens CVC - Todos os direitos reservados.</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
